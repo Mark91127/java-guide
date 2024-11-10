@@ -53,6 +53,7 @@ public class Example {
 | `native`       | 表示該方法由本地代碼實現（非 Java 代碼） | 方法         |
 | `strictfp`     | 強制使用 IEEE 754 標準進行浮點數運算 | 類別、方法      |
 
+**範例 :**
 
 ```java
 
