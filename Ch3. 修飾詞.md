@@ -2,39 +2,41 @@
 
 ## 修飾詞 (Modifiers)
 
-修飾詞用來控制類別、屬性、方法等的訪問權限和行為。主要分為 `存取修飾詞` 和 `非存取修飾詞`，它們可以影響代碼的可見性、繼承性和執行方式。
+修飾詞用來控制類別、屬性、方法等的訪問權限和行為。主要分為 `存取修飾詞` 和 `非存取修飾詞`
+，它們可以影響代碼的可見性、繼承性和執行方式。
 
 ### 存取修飾詞（Access Modifiers）
 
-存取修飾詞控制成員的可見性和訪問範圍，包括 `public`、`protected`、`private`、`default`，來達到`封裝`概念。
+存取修飾詞控制成員的可見性和訪問範圍，包括 `public`、`protected`、`default`、`private`，來達到`封裝`概念。
 
 | 修飾詞         | 訪問範圍           | 用於類別/方法/屬性 |
 |-------------|----------------|------------|
 | `public`    | 任何類別都能訪問       | `類別、屬性、方法` |
 | `protected` | 同一包內、以及子類別可以訪問 | `屬性、方法`    |
-| `private`   | 只能在同一類別內訪問     | `屬性、方法`    |
 | `默認(無修飾)`   | 同一包內可以訪問       | `類別、屬性、方法` |
+| `private`   | 只能在同一類別內訪問     | `屬性、方法`    |
 
 **範例 :**
 
 ```java
 public class Example {
-    public int publicField;
-    protected int protectedField;
-    private int privateField;
-    int defaultField; // default
 
-    public void publicMethod() {
-    }
+  public int publicField;
+  protected int protectedField;
+  private int privateField;
+  int defaultField; // default
 
-    protected void protectedMethod() {
-    }
+  public void publicMethod() {
+  }
 
-    private void privateMethod() {
-    }
+  protected void protectedMethod() {
+  }
 
-    void defaultMethod() {
-    } // default
+  private void privateMethod() {
+  }
+
+  void defaultMethod() {
+  } // default
 }
 ```
 
@@ -53,10 +55,10 @@ public class Example {
 | `native`       | 表示該方法由本地代碼實現（非 Java 代碼） | 方法         |
 | `strictfp`     | 強制使用 IEEE 754 標準進行浮點數運算 | 類別、方法      |
 
-
 ## 重點整理
 
-- 使用存取修飾詞來達到封裝概念，保護程式碼不被輕易呼叫、修改。
+- 使用`存取修飾詞`來達到`封裝`概念，保護程式碼不被輕易呼叫、修改。
+- 使用其他`包`的`類別`時，使用`import`提升可讀性。
 - `static` 能透過類別名稱方式呼叫，無需實例化。
 - `final` 使方法不能覆寫，變數值不能修改。
 - `abstract` 抽象類別或方法，無具體實現，`interface`就是抽象。

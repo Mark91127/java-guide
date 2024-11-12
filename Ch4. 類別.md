@@ -2,9 +2,11 @@
 
 ## Class 類別
 
-用來定義物件的設計圖。它是物件導向程式設計（OOP）的核心概念之一，用來描述物件的屬性（資料）和行為（方法）。簡單來說，`class` 是用來創建物件的模板，而物件則是 `class` 的實例。
+用來定義物件的設計圖。它是物件導向程式設計（OOP）的核心概念之一，用來描述物件的屬性（資料）和行為（方法）。簡單來說，
+`class` 是用來創建物件的模板，而物件則是 `class` 的實例。
 
-**宣告規則** 
+**宣告規則**
+
 - 類別名稱需以`大駝峰`命名，例如:`Example`、`Simple`。
 - `[]`代表選填，依情境選擇填寫。
 
@@ -13,27 +15,34 @@
 ```
 
 **範例 :**
+
 ```java
 public class Example {
-    
+
 }
 ```
 
-在`class`程式區塊裡可以包含以下資訊:
+在`class.java`可包含以下資訊：
 
-- package
-- 成員變數 (屬性、全域變數)
-- constructor
-- method
-- static block
+- package 包
+- import 引入
+
+在`class`程式區塊裡可以包含以下資訊：
+
+- member variables 成員變數 (屬性、全域變數)
+- constructor 建構子
+- method 方法
+- static block 靜態區塊
 
 ### 包 (Package)
 
 是一個用來組織類別、介面和子包的命名空間機制。允許開發者將類別進行分類和組織，並且可以避免類別名稱衝突。這樣的組織方式提高了代碼的可維護性、可擴展性，並且便於管理大型應用程式。
 
 #### 用途
+
 - 避免命名衝突：在不同的包中可以有相同名稱的類別，從而避免命名衝突。 例如:同個地址不會出現兩棟房子。
-- 控制存取範圍：`package` 可以控制類別、方法、屬性的可見性，配合存取修飾詞（`public`, `private`, `protected` 等）來進行權限管理。
+- 控制存取範圍：`package` 可以控制類別、方法、屬性的可見性，配合存取修飾詞（`public`, `private`,
+  `protected` 等）來進行權限管理。
 
 #### 宣告規則
 
@@ -41,8 +50,8 @@ public class Example {
 - `package`應該是小寫字母，並且由點（.）分隔，分別代表不同層級的包結構。
 - 必須在 `class` 第一行。
 
-```text
-package package_name;
+```java
+package 包名稱;
 ```
 
 **範例 :**
@@ -51,18 +60,110 @@ package package_name;
 package com.example.myapp;
 
 class Example {
-    
+
 }
 ```
 
 此範例表示，`example` 這個 `class` 位於 `com.example.myapp` 資料夾中。
 
+### 引入 (import)
+
+用於在程式碼中引入其他包（package）中的`類別`或`靜態成員`，使得我們可以直接使用這些類別或成員，而無需在程式中寫出完整的類別路徑。
+可以提高程式碼的可讀性，並有助於管理大型程式中的不同類別和包之間的依賴。
+
+#### 宣告規則
+
+- 範圍必須在`package`之後`class`之前。
+- `*`表示引入包路徑底下所有`class`
+
+```java
+import 包路徑.類別名稱;
+import 包路徑.*;
+```
+
+由於`Test`位在不同`package`，所以透過`import`方式引入。
+
+```java
+import com.example.test.Test;
+
+public class Example {
+
+  public static void main(String[] args) {
+    Test test = new Test();
+  }
+
+}
+```
+
+也可以直接撰寫包路徑，但可讀性差。
+
+```java
+public class Example {
+
+  public static void main(String[] args) {
+    com.example.test.Test test = new com.example.test.Test();
+  }
+
+}
+```
+
+#### 靜態引入 (static import)
+
+允許在程式碼中直接使用其他類別的靜態成員（例如，靜態變數和靜態方法），而無需每次都寫出類別名稱。這個功能使得程式碼更簡潔
+，尤其在需要頻繁使用靜態常量或靜態方法時。
+
+靜態導入的語法是在 import 關鍵字後加上 static，後面跟著類別的完整路徑和成員名稱。
+
+- 導入特定的靜態成員：可以使用具體的靜態成員名稱。
+  ```java
+  import static java.lang.Math.PI;
+  import static java.lang.Math.pow;
+  ```
+
+這樣我們就可以在程式中直接使用 `PI` 和 `pow()`，而不需要寫出完整的 `Math.PI` 和 `Math.pow()`。
+
+- 導入類別的所有靜態成員：使用 * 表示導入該類的所有靜態成員。
+  ```java
+  import static java.lang.Math.*;
+  ```
+
+使用 `*` 表示可以直接使用 `Math` 類中的所有靜態方法和靜態變數，例如 `PI`、`E`、`sin()`、`cos()` 等等。
+
+**範例：**
+
+```java
+import static java.lang.Math.PI;
+import static java.lang.Math.pow;
+import static java.lang.Math.sqrt;
+
+public class StaticImportExample {
+
+  public static void main(String[] args) {
+    double radius = 5.0;
+
+    // 使用靜態導入的 PI 和 pow，不需加 Math.
+    double area = PI * pow(radius, 2);
+    System.out.println("Area of circle: " + area);
+
+    // 使用靜態導入的 sqrt，不需加 Math.
+    double result = sqrt(25);
+    System.out.println("Square root of 25: " + result);
+  }
+}
+```
+
+我們使用了 Math 類中的靜態成員 PI、pow() 和 sqrt()，透過靜態導入可以直接使用這些成員，而無需每次都寫出
+Math.PI、Math.pow() 和 Math.sqrt()，這樣讓程式碼更簡潔明了。
+
+**注意事項**
+
+- 避免過度使用：建議僅在需要頻繁使用靜態成員（例如常量或通用方法）時使用靜態導入。
+- 名稱衝突問題：如果多個類別的靜態成員名稱相同（例如 `Math` 和 `AnotherClass` 中都有 `PI`），可能會出現名稱衝突。因此，應小心避免導入來源不明的靜態成員。
+- 靜態導入與普通導入不同：普通的 `import` 導入是針對整個類別，而靜態導入則是針對類別中的靜態成員。
+
 ### 成員變數 (Member Variables)
 
 是定義在類別內部、但位於方法外部的變數。成員變數是類別或物件的屬性，描述了該類別或物件的狀態。每個物件都有自己的一份獨立的成員變數值，除非它們被定義為靜態變數（static），讓所有物件共享同一個值。
-
-#### 命名規則
-
 
 #### 宣告規則
 
@@ -73,7 +174,9 @@ class Example {
 ```text
 [存取修飾詞] [static] [final] 型態 變數名稱;
 ```
-可以是任何有效的型態，包括基本資料型態（如 `int`, `double`, `boolean` 等）以及物件型資料型態（如 `String`, `自訂類別`等）。
+
+可以是任何有效的型態，包括基本資料型態（如 `int`, `double`, `boolean` 等）以及物件型資料型態（如
+`String`, `自訂類別`等）。
 
 **範例 :**
 
@@ -81,15 +184,14 @@ class Example {
 package com.example.myapp;
 
 class Example {
-    
-    public int i;
-    public String str = "hello world";
-    public static String str1 = "hello world";
-    public static final String STATIC_STR = "hello world"; //因不可變，所以為常數
-    
+
+  public int i;
+  public String str = "hello world";
+  public static String str1 = "hello world";
+  public static final String STATIC_STR = "hello world"; //因不可變，所以為常數
+
 }
 ```
-
 
 ### 建構子 (Constructor)
 
@@ -103,19 +205,20 @@ class Example {
 ```text
 [存取修飾詞] 類別名稱 ([參數...]) {}
 ```
+
 如果未建立有參數建構子，`Java`則會新增空參數建構子(預設建構子)。
 
 **範例1 :**
 
 ```java
 class Example {
-    
-    //隱藏的預設建構子 public Example() {}
 
-    public static void main(String[] args) {
-        Example example = new Example();
-    }
-    
+  //隱藏的預設建構子 public Example() {}
+
+  public static void main(String[] args) {
+    Example example = new Example();
+  }
+
 }
 ```
 
@@ -125,18 +228,18 @@ class Example {
 
 ```java
 class Example {
-    
-    public String text;
-    
-    public Example(String text) {
-        this.text = text;
-    }
 
-    public static void main(String[] args) {
-        Example example = new Example(); // compiler error
-        Example example = new Example("Hello World"); // success
-    }
-    
+  public String text;
+
+  public Example(String text) {
+    this.text = text;
+  }
+
+  public static void main(String[] args) {
+    Example example = new Example(); // compiler error
+    Example example = new Example("Hello World"); // success
+  }
+
 }
 ```
 
@@ -146,22 +249,22 @@ class Example {
 
 ```java
 class Example {
-    
-    public String text;
 
-    public Example() {
-        
-    }
-    
-    public Example(String text) {
-        this.text = text;
-    }
+  public String text;
 
-    public static void main(String[] args) {
-        Example example = new Example(); // success
-        Example example = new Example("Hello World"); // success
-    }
-    
+  public Example() {
+
+  }
+
+  public Example(String text) {
+    this.text = text;
+  }
+
+  public static void main(String[] args) {
+    Example example = new Example(); // success
+    Example example = new Example("Hello World"); // success
+  }
+
 }
 ```
 
@@ -171,7 +274,9 @@ class Example {
 
 #### 方法簽章 (Method Signature)
 
-是指方法的名稱、參數類型和參數的順序，這些共同決定了方法的唯一性。在 `Java` 中，方法簽章是用來區分不同方法的關鍵因素，特別是在方法重載的情境下，當同一個類別中有多個方法名稱相同但參數不同時，`Java` 會根據方法簽章來區分這些方法。
+是指方法的名稱、參數類型和參數的順序，這些共同決定了方法的唯一性。在 `Java`
+中，方法簽章是用來區分不同方法的關鍵因素，特別是在方法重載的情境下，當同一個類別中有多個方法名稱相同但參數不同時，
+`Java` 會根據方法簽章來區分這些方法。
 
 - 名稱應該要有動詞，並且以`小駝峰`命名，例如:`run()`、`getData()`、`setData()`。
 - `[]`代表選填，依情境選擇填寫。
@@ -179,48 +284,133 @@ class Example {
 ```text
 [存取修飾詞] [abstract] [synchronized] [static] [final] 回傳值 方法名稱([參數...]) {}
 ```
+
 **範例 :**
 
 ```java
 class Example {
-    
-    public void run() {
-        System.out.println("run");
-    }
-    
+
+  public void run() {
+    System.out.println("run");
+  }
+
 }
 ```
+
+#### 重載 (Overload)
+
+方法重載（Method Overloading） 是指在同一個類別中可以定義多個同名的方法，但它們的參數列表必須不同（參數的數量、類型
+或順序不同）。方法重載的主要目的是讓 相同的方法名稱可以根據不同的參數類型或數量來執行不同的操作，這提高了程式碼的可讀性和靈活性。
+
+**特性：**
+
+- 同名方法：所有重載的方法名稱必須相同。
+- 參數不同：同方法重載的參數必須不同，可以是參數數量不同、參數類型不同或參數順序不同。
+- 返回值不影響重載：返回值類型無法區分重載。也就是說，僅改變返回值而不改變參數列表無法構成方法重載。
+
+```java
+public class OverloadExample {
+
+  // 方法重載 - 沒有參數
+  public void print() {
+    System.out.println("No parameters");
+  }
+
+  // 方法重載 - 一個整數參數
+  public void print(int num) {
+    System.out.println("Integer parameter: " + num);
+  }
+
+  // 方法重載 - 一個字串參數
+  public void print(String text) {
+    System.out.println("String parameter: " + text);
+  }
+
+  // 方法重載 - 兩個參數
+  public void print(String text, int num) {
+    System.out.println("String and integer parameters: " + text + ", " + num);
+  }
+
+  public static void main(String[] args) {
+    OverloadExample example = new OverloadExample();
+
+    example.print();                   // 呼叫沒有參數的 print()
+    example.print(10);                 // 呼叫一個整數參數的 print(int num)
+    example.print("Hello");            // 呼叫一個字串參數的 print(String text)
+    example.print("Hello", 20);        // 呼叫兩個參數的 print(String text, int num)
+  }
+}
+```
+
+**方法重載的好處**
+
+- 增強程式的靈活性：使用同名的方法來執行不同參數的操作，使得程式更加靈活且易於理解。
+- 改善程式的可讀性：可以使用具有相同語義的方法名稱來處理不同類型或數量的參數，使得程式碼結構更清晰。
+- 支援多樣化參數處理：通過方法重載可以支援同一操作的不同表達方式，而不必使用不同的方法名稱。
+
+**方法重載的限制**
+
+- 僅更改返回類型無法構成重載：僅改變方法的返回值類型不構成方法重載。例如，`int print()` 和
+  `void print()` 無法共存，因為它們的參數列表相同。
+  ```java
+    public void print() {}
+
+    public int print() {}
+  ```
+- 參數列表順序或類型必須不同：參數列表順序或類型不同時，才可以成功重載。例如，`print(int, String)` 和
+  `print(String, int)` 可以共存。
+  ```java
+    public void print(String s, int i) {}
+
+    public void print(int i, String s) {}
+  ```
 
 了解完上述資訊後，我們來設計衣服 `class`。
 
 ```java
 class Clothes {
 
-    private String type; // 衣服的類型，例如 "T-Shirt"、"Jacket" 等
-    private String color; // 顏色
-    private String size; // 尺寸，例如 "S", "M", "L", "XL"
+  private String type; // 衣服的類型，例如 "T-Shirt"、"Jacket" 等
+  private String color; // 顏色
+  private String size; // 尺寸，例如 "S", "M", "L", "XL"
 
-    public Clothes(String type, String color, String size) {
-        this.type = type;
-        this.color = color;
-        this.size = size;
-    }
+  public Clothes(String type, String color, String size) {
+    this.type = type;
+    this.color = color;
+    this.size = size;
+  }
 
-    public String getType() { return type; }
-    public void setType(String type) { this.type = type; }
+  public String getType() {
+    return type;
+  }
 
-    public String getColor() { return color; }
-    public void setColor(String color) { this.color = color; }
+  public void setType(String type) {
+    this.type = type;
+  }
 
-    public String getSize() { return size; }
-    public void setSize(String size) { this.size = size; }
+  public String getColor() {
+    return color;
+  }
+
+  public void setColor(String color) {
+    this.color = color;
+  }
+
+  public String getSize() {
+    return size;
+  }
+
+  public void setSize(String size) {
+    this.size = size;
+  }
 
 }
 ```
 
 ## 重點整理
 
-- `class` 程式區塊內只能存在`package`、`成員變數 (屬性、全域變數)`、`constructor`、`method`、`static block`。`if`、`for`等只能存在方法區塊。
+- `class` 程式區塊內只能存在`package`、`成員變數 (屬性、全域變數)`、`constructor`、`method`、
+  `static block`。`if`、`for`等只能存在方法區塊。
 - `package` 宣告必須在 `class` 最上面。
 - `成員變數` 可以是任何有效的型態。
 - 如果未建立有參數建構子，`Java`則會新增空參數建構子(預設建構子)。
