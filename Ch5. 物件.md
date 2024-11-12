@@ -3,8 +3,13 @@
 ## 物件 (Object)
 
 基於物件導向程式設計（OOP）概念的核心單位。`類別(class)` 透過實例化產生物件，代表一個具體的
-`實例(instance)`
-，包含`屬性(attributes)`和`行為(methods)`。
+`實例(instance)`，包含`屬性(attributes)`和`行為(methods)`。
+
+**特性**
+
+- 每個物件都是獨立的，例如屬性。
+- 產生時會佔用一部份記憶體空間。
+- 非靜態的屬性及方法，需透過實例化後呼叫。
 
 ### 實例化 (Instantiation)
 
@@ -55,7 +60,7 @@ public class Example {
 
 ### 堆(Heap) vs 堆疊(Stack)
 
-在`JVM`的`Data Runtime Area`裡其中有`堆疊(Stack)`跟`堆(Heap)`兩大區塊，以下是特性介紹：
+在`JVM`的`Data Runtime Area`裡其中有`堆疊(Stack)`跟`堆(Heap)`兩個重要區塊，以下是特性介紹：
 
 #### 堆疊(Stack)
 
