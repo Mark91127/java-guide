@@ -10,7 +10,8 @@
 - 每個物件都是獨立的，例如屬性。
 - 產生時會佔用一部份記憶體空間。
 - 非靜態的屬性及方法，需透過實例化後呼叫。
-
+- 所有物件一律都會繼承`Object`，並提供相關方法，例如：`toString()`、`equals(Object obj)`、`hashcode()`。
+  
 ### 實例化 (Instantiation)
 
 是創建物件的過程，通常使用 `new` 關鍵字來達成。以下是幾種常見的實例化方式和情境：
@@ -60,7 +61,7 @@ public class Example {
 
 ### 堆(Heap) vs 堆疊(Stack)
 
-在`JVM`的`Data Runtime Area`裡其中有`堆疊(Stack)`跟`堆(Heap)`兩個重要區塊，以下是特性介紹：
+在`JVM`的`Data Runtime Area`裡其中有`堆疊(Stack)`跟`堆(Heap)`兩個重要記憶體區塊，以下是特性介紹：
 
 #### 堆疊(Stack)
 
