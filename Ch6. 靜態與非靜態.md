@@ -1,0 +1,315 @@
+# 靜態與非靜態
+
+## 靜態 (Static)
+
+`static`是一個關鍵字，可用於修飾類別中的：
+
+- 成員變數
+- 方法
+- 靜態區塊 (static block)
+- 內部類別 (inner class)
+
+該成員將屬於整個類別，並非每個實例獨立，且使用`類別名稱`訪問。以下是對 static 關鍵字的詳細說明：
+
+### 靜態變數（Static Variables）
+
+也稱為`類別變數`，使用`static`關鍵字聲明。所有該類別的實例共享同一個靜態變數。
+
+**宣告方式：**
+
+```java
+public static String text;
+```
+
+**特性：**
+
+- 無需實例化：透過類別名稱取得變數值。
+  ```text
+  Counter.count;
+  ```
+- 共享性：所有物件實例共享同一個靜態變數，對其中一個實例的修改會影響所有其他實例。
+- 內存分配：靜態變數在類載入時初始化，並在整個程式運行期間存在。
+
+```java
+public class Counter {
+
+  public static int count = 0;
+
+  public Counter() {
+    count++;
+  }
+}
+
+public class Main {
+
+  public static void main(String[] args) {
+    new Counter();
+    new Counter();
+    System.out.println(Counter.count); // 輸出: 2
+  }
+}
+```
+
+### 靜態方法（Static Methods）
+
+也稱為`類別方法`，使用`static`關鍵字聲明。這些方法屬於類別本身，而不是任何特定的實例。
+
+**宣告方式：**
+
+```java
+public static void test();
+```
+
+**特點：**
+
+- 無需實例化：可以直接通過類別名稱調用。
+
+```java
+public class MathUtils {
+
+  public static int add(int a, int b) {
+    return a + b;
+  }
+}
+
+public class Main {
+
+  public static void main(String[] args) {
+    int sum = MathUtils.add(5, 3); // 直接通過類別調用
+    System.out.println(sum); // 輸出: 8
+  }
+}
+```
+
+- 訪問限制：靜態方法無法直接訪問非靜態成員（變數或方法），因為它們不屬於任何實例。
+
+**範例-NG**
+
+由於`main`是靜態方法，只允許呼叫`靜態`的`成員變數`或`方法`。
+
+```java
+public class Example {
+
+  public String str = "Hello World";
+
+  public void test() {
+
+  }
+
+  public static void main(String[] args) {
+    test(); // compiler error 
+    System.out.println(str); // compiler error 
+  }
+
+}
+```
+
+**範例-OK**
+
+加入`static`至`成員變數`及`方法`，即可編譯成功。
+
+```java
+public class Example {
+
+  public static String str = "Hello World";
+
+  public static void test() {
+
+  }
+
+  public static void main(String[] args) {
+    test();
+    System.out.println(str);
+  }
+
+}
+```
+
+### 靜態區塊（Static Blocks）
+
+靜態區塊是用於初始化靜態變數的區塊。
+
+**宣告方式：**
+
+```java
+static {
+}
+```
+
+**特性：**
+
+- 類載入時執行：靜態區塊在類載入時執行`一次`，用於進行靜態變數的初始化。
+  ```java
+  public class StaticExample {
+
+  private static String str;
+  
+  static {
+    str = "Hello World";
+  }
+
+  public static void main(String[] args) {
+    System.out.println(StaticExample.str);
+  }
+
+  }
+  ```
+  即使沒有建立實例，也可以初始化成員變數，並印出`Hello World`。
+
+
+- 多個靜態區塊：一個類可以有`多個`靜態區塊，並按照順序執行。
+
+  ```java
+    public class StaticExample {
+
+  static {
+    System.out.println("static block1");
+  }
+
+  static {
+    System.out.println("static block3");
+  }
+
+  static {
+    System.out.println("static block2");
+  }
+
+  public static void main(String[] args) {
+    StaticExample staticExample;
+    StaticExample staticExample1;
+  }
+
+  }
+  ```
+  執行後印出：
+  ```text
+  static block1
+  static block3
+  static block2
+  ```
+
+**注意事項：**
+
+- 記憶體管理：靜態成員在類載入時分配記憶體，直到程式結束才會釋放。過多的靜態成員可能導致記憶體佔用增加。
+- 多線程環境：靜態變數如果被多線程訪問，需考慮同步問題，以避免競爭條件。
+- 設計考量：過度使用靜態成員可能導致程式設計不靈活，增加耦合度。應根據實際需求合理使用。
+
+## 非靜態 (Non Static)
+
+非靜態(non-static)成員是與特定類別實例相關聯的成員(如`變數`和`方法`)，只有在被`實例化`後才能被訪問。
+非靜態成員提供了每個物件的`唯一`狀態和行為，使每個物件之間相對`獨立`。
+
+### 非靜態變數（Non Static Variables）
+
+也稱`實例變數`，不使用`static`關鍵字聲明，且只能使用`物件變數`訪問。所有該類別的實例都擁有獨立的屬性。
+
+**宣告方式：**
+
+```java
+public String text;
+```
+
+**特性：**
+
+- 必須透過實例化才允許訪問該變數。
+  ```java
+  public class NonStaticExample {
+
+  public String text = "Hello World";
+  
+  public static void main(String[] args) {
+    NonStaticExample nonStaticExample = new NonStaticExample();
+    System.out.println(nonStaticExample.text); // print Hello World
+  }
+
+  }
+  ```
+
+- 可以直接訪問靜態變數，但是會有提醒應該要改用`類別名稱`訪問。
+
+  ```java
+  public class NonStaticExample {
+
+  public static String text = "Hello World";
+  
+  public String text1 = text;
+  
+  public static void main(String[] args) {
+    NonStaticExample nonStaticExample = new NonStaticExample();
+    System.out.println(nonStaticExample.text); // print Hello World
+    System.out.println(nonStaticExample.text1); // print Hello World
+  }
+
+  }
+  ```
+
+### 非靜態方法（Non Static Methods）
+
+也稱`實例方法`，沒有使用 `static` 關鍵字修飾。
+
+**特點：**
+
+- 必須透過實例化才允許訪問該方法。
+  ```java
+  public class NonStaticExample {
+
+   public String text = "Hello World";
+
+
+   public String getText() {
+     return text;
+   }
+
+   public static void main(String[] args) {
+     NonStaticExample nonStaticExample = new NonStaticExample();
+     System.out.println(nonStaticExample.getText());
+   }
+
+  }
+  ```
+
+- 非靜態方法可以直接訪問靜態變數和方法。
+
+  ```java
+  public class NonStaticExample {
+
+   public static String text = "Hello World";
+
+
+   public String getText() {
+     System.out.println(getStaticText()); //call static method and print "Static Hello World"
+     return text;
+   }
+
+   public static String getStaticText() {
+     return "Static Hello World";
+   }
+
+   public static void main(String[] args) {
+     NonStaticExample nonStaticExample = new NonStaticExample();
+     System.out.println(nonStaticExample.getText());
+   }
+
+  }
+  ```
+
+**注意事項：**
+
+- 記憶體管理：每個物件的非靜態變數佔用獨立的內存空間。大規模創建物件可能會消耗較多內存。
+- 多線程環境：由於每個物件有自己的非靜態變數，因此在多線程環境中不會共享數據，能夠減少線程間的數據競爭。
+- 設計考量：非靜態成員通常用於表示對象的特定狀態，這樣每個對象可以有不同的狀態和行為，提升了程式的靈活性和可擴展性。
+
+**重點整理：**
+
+- 靜態與非靜態的訪問權限及方式：
+
+| **訪問方式**       | **靜態變數**          | **非靜態變數** | **靜態方法**          | **非靜態方法** |
+|----------------|-------------------|-----------|-------------------|-----------|
+| **靜態方法中**      | 可以直接訪問            | 無法直接訪問    | 可以直接調用            | 無法直接調用    |
+| **非靜態方法中**     | 可以直接訪問            | 可以直接訪問    | 可以直接調用            | 可以直接調用    |
+| **其他類的靜態方法中**  | 通過 `類別名稱.變數名稱` 訪問 | 無法直接訪問    | 通過 `類別名稱.方法()` 調用 | 無法直接調用    |
+| **其他類的非靜態方法中** | 通過 `類別名稱.變數名稱` 訪問 | 通過實例對象訪問  | 通過 `類別名稱.方法()` 調用 | 通過實例對象調用  |
+
+- `靜態成員`記憶體`共享`，所以會減少記憶體消耗。
+- `非靜態成員`記憶體都是`獨立`，所以會增加記憶體開銷。
+- `靜態成員`、`非靜態成員`都需注意執行緒安全問題。
