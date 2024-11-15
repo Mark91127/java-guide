@@ -12,16 +12,16 @@
   String text = "Hello World";
   ```
 
-- `字串`也是`類別`，所以可以使用`new`關鍵字方式宣告。
+- `字串`也是`類別`，所以可以透過`new`關鍵字方式宣告。
   ```java
   String text = new String("Hello World");
   ```
 
 **特性：**
 
-- 不可變性(Immutability)：字串一旦創建，其內容`無法更改`。
+- 不可變(Immutability)：字串一旦創建，其內容`無法更改`。
 
-所以當對字串進行修改（如拼接）時，實際上是創建了一個新的字串物件，而不是在原字串基礎上進行更改。
+所以當對字串進行`修改`（如拼接）時，實際上是創建了一個`新`的字串物件，而不是在原字串基礎上進行更改。
 
 ```java
 public class StringExample {
@@ -98,7 +98,7 @@ public static void main(String[] args) {
 在這個例子中：
 
 - `str1` 和 `str2` 兩者為不同參照，所以為`false`。
-- `str3` 則是使用 `str2.intern()` 手動把`Hello`放進字串池，但是`str1`已經存在，所以回傳`str1`的字串物件參照。
+- `str3` 則是使用 `str2.intern()` 手動把`Hello`物件放進字串池，但是`Hello`物件已經存在，所以回傳`Hello`的物件參照。
 
 **intern前後差別：**
 
@@ -130,9 +130,9 @@ public static void main(String[] args) {
 
 在這個例子中：
 
-- 建立`Hello`字串物件，放入字串池。
-- 建立`Hello World`字串物件，未放入字串池。
-- `str3` 則是使用 `str2.intern()` 手動把`Hello World`放進字串池，並回傳字串池的`Hello World`字串物件的參照。
+- `str1`建立`Hello`字串物件，並放入字串池。
+- `str2`建立`Hello World`字串物件，但未放入字串池。
+- `str3` 則是使用 `str2.intern()`的`參照`，手動把`Hello World`放進字串池，並回傳字串池的`Hello World`字串物件的參照。
 
 ![stringpool_intern](/image/stringpool_intern.svg)
 
