@@ -82,6 +82,8 @@ public class Dog {
 
 `Cat`和`Dog`都是`動物`，所以我們可以透過`繼承`達到`重用`效果。
 
+![stack](image/inheritance.svg)
+
 建立`Animal`父類別：
 
 ```java
@@ -576,6 +578,8 @@ public class Cat extends Animal {
 - 避免複雜繼承問題。
 
 按照上述範例，透過`組合`方式實現，來找出共通點，例如：車有引擎(`Car` 有一個 `Engine`)。
+
+![stack](image/composition.svg)
 
 建立`Engine`組件：
 
